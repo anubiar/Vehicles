@@ -6,6 +6,7 @@ namespace Vehicles.Service
 {
     public interface IVehicolData
     {
+        Task createVehicol(Vehicle vehicle);
         Task<List<Vehicle>> getVehicole();
     }
 }

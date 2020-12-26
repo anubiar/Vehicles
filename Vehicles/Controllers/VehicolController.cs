@@ -40,8 +40,10 @@ namespace Vehicles.Controllers
 
         // POST api/<VehicolController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] Vehicle vehicle)
         {
+            vehicolData.createVehicol(vehicle);
+            return Ok();
         }
 
         // PUT api/<VehicolController>/5

@@ -32,15 +32,15 @@ namespace Vehicles.Data
             }
         }
 
-        public async Task<int> SaveData<U>(string storedProcedure, U parameters, string connectionStringName)
+        public async Task<int> SaveData<U>(string query, U parameters, string connectionStringName)
         {
             string connectionString = configuration.GetConnectionString(connectionStringName);
 
             using (IDbConnection connection = new OracleConnection(connectionString))
             {
-                return await connection.ExecuteAsync(storedProcedure,
-                                                     parameters,
-                                                     commandType: CommandType.StoredProcedure);
+                 var result = await connection.ExecuteAsync(query, parameters);
+
+                return result;
             }
         }
     }

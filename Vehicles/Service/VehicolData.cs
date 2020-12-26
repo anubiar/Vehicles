@@ -25,20 +25,30 @@ namespace Vehicles.Service
             return dataAccess.LoadData<Vehicle, dynamic>("select * from vehicol", new { }, connectionString.OracleConnectionName);
         }
 
-        //public Task<int> createVehicol(Vehicle vehicle)
-        //{
-        //    DynamicParameters p = new DynamicParameters();
+        public async Task createVehicol(Vehicle vehicle)
+        {
+            DynamicParameters p = new DynamicParameters();
 
-        //    p.Add("NrVehicol", vehicle.NrVehicol);
-        //    p.Add("Tip", vehicle.Tip);
-        //    p.Add("SerieMotor", vehicle.SerieMotor);
-        //    p.Add("SerieCaroserie", vehicle.SerieCaroserie);
-        //    p.Add("Corburant", vehicle.Carburant);
-        //    p.Add("Culoare", vehicle.Culoare);
-        //    p.Add("CappacitateCil", vehicle.CappacitateCil);
+            p.Add("Marca", vehicle.Marca);
+            p.Add("Tip", vehicle.Tip);
+            p.Add("SerieMotor", vehicle.SerieMotor);
+            p.Add("SerieCaroserie", vehicle.SerieCaroserie);
+            p.Add("Carburant", vehicle.Carburant);
+            p.Add("Culoare", vehicle.Culoare);
+            p.Add("CappacitateCil", vehicle.CappacitateCil);
 
-        //    await dataAccess.SaveData<>
+            try
+            {
+                var query = @"INSERT INTO vehicol(marca,tip,seriemotor,seriecaroserie,carburant,culoare,cappacitatecil) values(@Marca,@Tip,@SerieMotor,@SerieCaroserie,@Carburant,@Culoare,@CappacitateCil)";
+                await dataAccess.SaveData(query, p, connectionString.OracleConnectionName);
+            }
+            catch (Exception  e)
+            {
 
-        //}
+                Console.WriteLine(e.StackTrace);
+            }
+            
+
+        }
     }
 }
