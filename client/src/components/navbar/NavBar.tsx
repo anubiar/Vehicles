@@ -5,23 +5,39 @@ import {
     Divider,
     Drawer,
     Hidden,
-    IconButton,
+    IconButton, Link,
     List,
     ListItem, ListItemIcon, ListItemText,
     Toolbar,
     Typography
 } from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {makeStyles, Theme, useTheme} from "@material-ui/core/styles";
-import {ChevronLeft, ChevronRight, Inbox, Mail, Menu} from "@material-ui/icons";
+import { faHome,faCar,faIdCard,faUser } from '@fortawesome/free-solid-svg-icons'
+import {Menu} from "@material-ui/icons";
+import {useHistory, useLocation} from "react-router";
+import {Color} from "../../config/Color";
 
 
 const drawerWidth = 240;
-const NavBar = ({window} : any) => {
+
+const main = {text : 'Main', link : '/',icon : faHome}
+const vehicol = {text: 'Vehicule',link:'/vehicols',icon: faCar}
+const persoana = {text: 'Persoane',link:'/persoana',icon: faUser}
+const proprietate = {text:'Proprietate',link:'/proprietate',icon: faIdCard}
+
+const navOptions = [main,vehicol,persoana,proprietate]
+
+const NavBar = ({window,classToRender} : any) => {
 
     const classes = useStyles();
     const theme = useTheme();
+    const location = useLocation();
+    const navigation = useHistory();
+    const {pathname} = location;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const container = window !== undefined ? () => window().document.body : undefined;
+
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -34,20 +50,18 @@ const NavBar = ({window} : any) => {
             <div className={classes.toolbar} />
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
+                {navOptions.map(({text,icon,link} : any, index) => (
+                    <Link href={link} color={'inherit'}>
+                        <ListItem button key={text}>
+                            <ListItemIcon>
+                                <FontAwesomeIcon icon={icon} size={'lg'} className={pathname===link ?
+                                    classes.selectedNavIcon
+                                    :
+                                    undefined}/>
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
         </div>
@@ -103,6 +117,7 @@ const NavBar = ({window} : any) => {
                     </Drawer>
                 </Hidden>
             </nav>
+            {/*<Route component={classToRender}/>*/}
         </>
     )
 }
@@ -124,6 +139,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: `calc(100% - ${drawerWidth}px)`,
                 marginLeft: drawerWidth,
             },
+            background: `linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);` /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -135,10 +152,14 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: theme.mixins.toolbar,
         drawerPaper: {
             width: drawerWidth,
+            background: `linear-gradient(to left, #1c92d2, #f2fcfe);` /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         },
         content: {
             flexGrow: 1,
             padding: theme.spacing(3),
+        },
+        selectedNavIcon : {
+            color:Color.secondaryColor,
         },
     }),
 );

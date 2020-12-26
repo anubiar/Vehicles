@@ -10,6 +10,9 @@ import Main from "../screens/main/Main";
 import PageNotFound from "../screens/pageNotFound/PageNotFound";
 import {CssBaseline} from "@material-ui/core";
 import NavBar from "../components/navbar/NavBar";
+import Vehicles from "../screens/vehicule/Vehicles";
+import Persons from "../screens/person/Persons";
+import Owners from "../screens/owner/Owners";
 
 
 const Navigation = ({history} : any) => {
@@ -20,8 +23,37 @@ const Navigation = ({history} : any) => {
                 <Route exact path={'/'} render={() => (
                     <div className={classes.root}>
                         <CssBaseline/>
-                        <NavBar/>
-                        <Route component={Main}/>
+                        <NavBar Class/>
+                        <div style={{marginTop:100}}>
+                            <Route component={Main}/>
+                        </div>
+                    </div>
+                )}/>
+                <Route exact path={'/vehicols'} render={() => (
+                    <div className={classes.root}>
+                        <CssBaseline/>
+                        <NavBar Class />
+                        <div style={{marginTop:100}}>
+                            <Route component={Vehicles}/>
+                        </div>
+                    </div>
+                )}/>
+                <Route exact path={'/persoana'} render={() => (
+                    <div className={classes.root}>
+                        <CssBaseline/>
+                        <NavBar Class />
+                        <div style={{marginTop:100}}>
+                            <Route component={Persons}/>
+                        </div>
+                    </div>
+                )}/>
+                <Route exact path={'/proprietate'} render={() => (
+                    <div className={classes.root}>
+                        <CssBaseline/>
+                        <NavBar Class />
+                        <div style={{marginTop:100}}>
+                            <Route component={Owners}/>
+                        </div>
                     </div>
                 )}/>
                 <Route path={'/*'} component={PageNotFound}/>
