@@ -50,7 +50,7 @@ namespace Vehicles
             app.UseAuthorization();
 
             app.UseCors(
-                        options => options.WithOrigins("http://127.0.0.1:1234").AllowAnyMethod());
+                        options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
