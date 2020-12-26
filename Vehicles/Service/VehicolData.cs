@@ -39,7 +39,7 @@ namespace Vehicles.Service
 
             try
             {
-                var query = @"INSERT INTO vehicol(marca,tip,seriemotor,seriecaroserie,carburant,culoare,cappacitatecil) values(@Marca,@Tip,@SerieMotor,@SerieCaroserie,@Carburant,@Culoare,@CappacitateCil)";
+                var query = @"INSERT INTO vehicol(marca,tip,seriemotor,seriecaroserie,carburant,culoare,cappacitatecil) values(:Marca,:Tip,:SerieMotor,:SerieCaroserie,:Carburant,:Culoare,:CappacitateCil)";
                 await dataAccess.SaveData(query, p, connectionString.OracleConnectionName);
             }
             catch (Exception  e)

@@ -38,9 +38,12 @@ namespace Vehicles.Data
 
             using (IDbConnection connection = new OracleConnection(connectionString))
             {
-                 var result = await connection.ExecuteAsync(query, parameters);
+                
+                var result = await connection.ExecuteAsync(query, parameters, commandType: CommandType.Text);
 
                 return result;
+                
+                
             }
         }
     }
