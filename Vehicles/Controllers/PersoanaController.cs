@@ -50,5 +50,13 @@ namespace Vehicles.Controllers
             persoanaData.DeletePersoana(id);
             return Ok();
         }
+
+        [HttpGet("{cnp}")]
+        public ActionResult IsCnpExist(long cnp)
+        {
+            var exist = persoanaData.IsExist(cnp);
+
+            return Ok(new {exista = exist.Result });
+        }
     }
 }
