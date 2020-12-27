@@ -8,5 +8,7 @@ namespace Vehicles.Service
     {
         Task createVehicol(Vehicle vehicle);
         Task<List<Vehicle>> getVehicole();
+        Task deleteVehicol(int id);
+        Task updateVehicol(Vehicle vehicle);
     }
 }

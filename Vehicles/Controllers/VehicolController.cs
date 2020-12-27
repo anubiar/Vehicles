@@ -47,15 +47,19 @@ namespace Vehicles.Controllers
         }
 
         // PUT api/<VehicolController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public ActionResult Put([FromBody] Vehicle vehicle)
         {
+            vehicolData.updateVehicol(vehicle);
+            return Ok();
         }
 
         // DELETE api/<VehicolController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            vehicolData.deleteVehicol(id);
+            return Ok();
         }
     }
 }
