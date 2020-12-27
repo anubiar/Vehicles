@@ -40,18 +40,14 @@ const Navigation = ({history} : any) => {
                     <div className={classes.root}>
                         <CssBaseline/>
                         <NavBar Class />
-                        <div style={{marginTop:100}}>
-                            <Route component={Persons}/>
-                        </div>
+                        <Route component={Persons}/>
                     </div>
                 )}/>
                 <Route exact path={'/proprietate'} render={() => (
                     <div className={classes.root}>
                         <CssBaseline/>
                         <NavBar Class />
-                        <div style={{marginTop:100}}>
-                            <Route component={Owners}/>
-                        </div>
+                        <Route component={Owners}/>
                     </div>
                 )}/>
                 <Route path={'/*'} component={PageNotFound}/>

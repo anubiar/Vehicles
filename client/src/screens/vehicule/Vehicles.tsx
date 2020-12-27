@@ -101,6 +101,79 @@ const Vehicles = () => {
         }
     }
 
+    const handleRowUpdate = async (newData: any,oldData:any, resolve: Function) => {
+        //validation
+        let errorList = []
+        if (newData.marca === undefined) {
+            errorList.push("Please enter marca")
+        }
+        if (newData.tip === undefined) {
+            errorList.push("Please enter tip")
+        }
+        if (newData.serieMotor === undefined) {
+            errorList.push("Please enter serieMotor")
+        }
+        if(newData.serieCaroserie === undefined) {
+            errorList.push("Please select Serie Caroserie");
+        }
+        if(newData.carburant === undefined) {
+            errorList.push("Please select carburant");
+        }
+        if(newData.culoare === undefined) {
+            errorList.push("Please select culoare");
+        }
+        if(newData.cappacitateCil === undefined) {
+            errorList.push("Please select Capacitate Cilindru");
+        }
+        if(newData.cappacitateCil <0 ) {
+            errorList.push("Capacitate cilindru should be bigger than 0");
+        }
+
+
+
+        if (errorList.length < 1) { //no error
+            try {
+                const response = await ApiService.put('vehicol', newData)
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+                resolve()
+                setIserror(false)
+                setErrorMessages([])
+            }
+            catch (e) {
+                console.log(e)
+                setIserror(true)
+                setErrorMessages(["Error server"]);
+                resolve();
+            }
+        }
+        else {
+            setErrorMessages(errorList)
+            setIserror(true)
+            resolve()
+        }
+    }
+
+    const handleRowDelete = async (oldData: any, resolve: Function) => {
+        try {
+            const response = await ApiService.delete(`vehicol/${oldData.nrVehicol}`)
+            const dataDelete = [...data];
+            const index = oldData.tableData.id;
+            dataDelete.splice(index,1);
+            setData([...dataDelete]);
+            setIserror(false)
+            resolve();
+        }
+        catch (e) {
+            console.log(e);
+            setIserror(true)
+            setErrorMessages(['Server error']);
+            resolve()
+        }
+    }
+
     const columns = [
         {title: "Nr vehicol",field : 'nrVehicol',hidden:true},
         {title: 'marca', field: 'marca', },
@@ -130,7 +203,7 @@ const Vehicles = () => {
                         }
                     </div>
                     <MaterialTable
-                        title={'Medicaments per medic'}
+                        title={'Vehicles'}
                         //@ts-ignore
                         columns={columns}
                         data={data}
@@ -143,11 +216,11 @@ const Vehicles = () => {
                                 }),
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve) => {
-                        //             handleRowUpdate(newData, oldData, resolve);
+                                    handleRowUpdate(newData, oldData, resolve);
                                 }),
                             onRowDelete: (oldData) =>
                                 new Promise((resolve) => {
-                        //             handleRowDelete(oldData, resolve)
+                                    handleRowDelete(oldData, resolve)
                                 }),
                         }}
                         options={{
