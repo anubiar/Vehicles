@@ -87,7 +87,9 @@ namespace Vehicles.Service
 
             var query = @"SELECT * FROM persoana WHERE cnp = :Cnp";
 
-            var exist = dataAccess.LoadData<Persoana, dynamic>(query, p, connectionStringData.OracleConnectionName).Result.Count == 0 ? false : true;
+            var result = await dataAccess.LoadData<Persoana, dynamic>(query, p, connectionStringData.OracleConnectionName);
+
+            var exist = result.Count == 0 ? false : true;
 
             return exist;
         }
