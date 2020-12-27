@@ -47,10 +47,11 @@ namespace Vehicles
 
             app.UseRouting();
 
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
             app.UseAuthorization();
 
-            app.UseCors(
-                        options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
