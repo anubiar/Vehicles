@@ -35,6 +35,8 @@ namespace Vehicles
             services.AddSingleton<IDataAccess, OraclDb>();
 
             services.AddSingleton<IVehicolData,VehicolData>();
+
+            services.AddSingleton<IPersoanaData, PersoanaData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
