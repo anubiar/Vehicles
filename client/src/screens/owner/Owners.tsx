@@ -93,17 +93,21 @@ const Owners = () => {
         if(newData.pret === undefined) {
             errorList.push("Please enter pret");
         }
+        if(newData.pret < 0){
+            errorList.push('Pret should be bigger than 0')
+        }
 
 
         if (errorList.length < 1) { //no error
             try {
-                console.log(newData);
-                console.log(newData.dataCumpararii);
-                console.log(moment(newData.dataCumpararii).unix());
-                const response = await ApiService.post('proprietate', {
+                const payload = {
                     ...newData,
-                    dataCumpararii : moment(newData.dataCumpararii).unix(),
-                })
+                    dataCumpararii : moment(newData.dataCumpararii).format(),
+                    cnp : parseInt(newData.cnp),
+                    nrVehicol : parseInt(newData.nrVehicol),
+                }
+                console.log(payload)
+                const response = await ApiService.post('proprietate', payload);
                 const dataToAdd = [...data];
                 dataToAdd.push(newData);
                 setData(dataToAdd);
@@ -121,6 +125,76 @@ const Owners = () => {
         else {
             setErrorMessages(errorList)
             setIserror(true)
+            resolve()
+        }
+    }
+
+    const handleRowUpdate = async (newData: any,oldData:any, resolve: Function) => {
+        //validation
+        let errorList = []
+        if (newData.cnp === undefined) {
+            errorList.push("Please select Proprietar")
+        }
+        if (newData.nrVehicol === undefined) {
+            errorList.push("Please select vehicol")
+        }
+        if(newData.dataCumpararii === undefined) {
+            errorList.push("Please select date");
+        }
+        if(newData.pret === undefined) {
+            errorList.push("Please enter pret");
+        }
+        if(newData.pret < 0){
+            errorList.push('Pret should be bigger than 0')
+        }
+
+
+        if (errorList.length < 1) { //no error
+            try {
+                const payload = {
+                    ...newData,
+                    dataCumpararii : moment(newData.dataCumpararii).format(),
+                    cnp : parseInt(newData.cnp),
+                    nrVehicol : parseInt(newData.nrVehicol),
+                }
+                console.log(payload)
+                const response = await ApiService.put('proprietate', payload);
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+                resolve()
+                setIserror(false)
+                setErrorMessages([])
+            }
+            catch (e) {
+                console.log(e)
+                setIserror(true)
+                setErrorMessages(["Error server"]);
+                resolve();
+            }
+        }
+        else {
+            setErrorMessages(errorList)
+            setIserror(true)
+            resolve()
+        }
+    }
+
+    const handleRowDelete = async (oldData: any, resolve: Function) => {
+        try {
+            const response = await ApiService.delete(`proprietate/${oldData.propId}`)
+            const dataDelete = [...data];
+            const index = oldData.tableData.id;
+            dataDelete.splice(index,1);
+            setData([...dataDelete]);
+            setIserror(false)
+            resolve();
+        }
+        catch (e) {
+            console.log(e);
+            setIserror(true)
+            setErrorMessages(['Server error']);
             resolve()
         }
     }
@@ -164,11 +238,11 @@ const Owners = () => {
                                 }),
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve) => {
-                                    // handleRowUpdate(newData, oldData, resolve);
+                                    handleRowUpdate(newData, oldData, resolve);
                                 }),
                             onRowDelete: (oldData) =>
                                 new Promise((resolve) => {
-                                    // handleRowDelete(oldData, resolve)
+                                    handleRowDelete(oldData, resolve)
                                 }),
                         }}
                         options={{
