@@ -22,9 +22,17 @@ namespace Vehicles.Controllers
 
 
         [HttpGet]
+        [Route(template:"punctulc")]
         public ActionResult<List<NrVehicoleResponse>> GetNrVehicole()
         {
             return Ok(nrVehicoleData.PunctC());
+        }
+        
+        [HttpGet]
+        [Route(template:"punctuld")]
+        public ActionResult<int> GetSumaVehicole()
+        {
+            return Ok(nrVehicoleData.SumaTotalaVehicole());
         }
     }
 }
