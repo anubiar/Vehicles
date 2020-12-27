@@ -39,6 +39,8 @@ namespace Vehicles
             services.AddSingleton<IPersoanaData, PersoanaData>();
 
             services.AddSingleton<IProprietateData, ProprietateData>();
+
+            services.AddSingleton<INrVehicoleData, NrVehicoleData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
