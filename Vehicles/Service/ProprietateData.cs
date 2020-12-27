@@ -38,7 +38,7 @@ namespace Vehicles.Service
             p.Add("Pret", proprietate.Pret);
 
 
-            var query = @"INSERT INTO proprietate(cnp,nrvehicol,datacumpararii,pret) values(:Cnp,:NrVehicol,:DataCumpararii,:Pret)";
+            var query = @"INSERT INTO proprietate(cnp,nrvehicol,datacumpararii,pret) values(:Cnp,:NrVehicol,Cast(:DataCumpararii as DATE),:Pret)";
 
             var result = await dataAccess.SaveData(query, p, connectionString.OracleConnectionName);
 

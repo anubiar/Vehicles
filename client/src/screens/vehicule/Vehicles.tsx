@@ -114,16 +114,16 @@ const Vehicles = () => {
             errorList.push("Please enter serieMotor")
         }
         if(newData.serieCaroserie === undefined) {
-            errorList.push("Please select Serie Caroserie");
+            errorList.push("Please enter Serie Caroserie");
         }
         if(newData.carburant === undefined) {
-            errorList.push("Please select carburant");
+            errorList.push("Please enter carburant");
         }
         if(newData.culoare === undefined) {
-            errorList.push("Please select culoare");
+            errorList.push("Please enter culoare");
         }
         if(newData.cappacitateCil === undefined) {
-            errorList.push("Please select Capacitate Cilindru");
+            errorList.push("Please enter Capacitate Cilindru");
         }
         if(newData.cappacitateCil <0 ) {
             errorList.push("Capacitate cilindru should be bigger than 0");
