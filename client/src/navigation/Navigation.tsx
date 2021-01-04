@@ -24,9 +24,7 @@ const Navigation = ({history} : any) => {
                     <div className={classes.root}>
                         <CssBaseline/>
                         <NavBar Class/>
-                        <div style={{marginTop:100}}>
-                            <Route component={Main}/>
-                        </div>
+                        <Route component={Main}/>
                     </div>
                 )}/>
                 <Route exact path={'/vehicols'} render={() => (
