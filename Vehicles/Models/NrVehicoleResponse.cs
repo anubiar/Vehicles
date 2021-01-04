@@ -7,7 +7,7 @@ namespace Vehicles.Models
 {
     public class NrVehicoleResponse
     {
-        public string? Marca { get; set; }
+        public string Marca { get; set; }
 
         public int? Marci { get; set; }
 
