@@ -34,5 +34,14 @@ namespace Vehicles.Controllers
         {
             return Ok(nrVehicoleData.SumaTotalaVehicole());
         }
+
+
+        [HttpGet]
+        [Route("getmarci")]
+        public ActionResult<List<MarcaResponse>> GetMarci()
+        {
+
+            return Ok(nrVehicoleData.GetMarciByCursor());
+        }
     }
 }
