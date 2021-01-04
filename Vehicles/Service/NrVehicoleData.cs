@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Vehicles.Data;
@@ -26,6 +28,17 @@ namespace Vehicles.Service
                                                                                 connectionStringData.OracleConnectionName);
             return result;
 
+        }
+
+        public async Task<int> SumaTotalaVehicole()
+        {
+
+            DynamicParameters p = new DynamicParameters();
+
+            p.Add("TOTALSUMA", DbType.VarNumeric, direction: ParameterDirection.ReturnValue);
+            var result = await dataAccess.LoadDataFunction<int, dynamic>("SUMAVEHICOLE", p, connectionStringData.OracleConnectionName);
+
+            return p.Get<int>("TOTALSUMA");
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Vehicles.Service
     public interface INrVehicoleData
     {
         Task<List<NrVehicoleResponse>> PunctC();
+        Task<int> SumaTotalaVehicole();
     }
 }
